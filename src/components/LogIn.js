@@ -21,13 +21,11 @@ const LogIn = () => {
   const password = useRef(null);
   const fullName = useRef(null);
   const dispatch = useDispatch();
-  const userFields = useSelector((store) => store.user);
+  const userFields = useSelector((store) => store.user); // eslint-disable-line
 
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
   };
-
-  console.log("Rendereddddd");
 
   const handleSubmit = () => {
     setNameErrorMessage(null);
@@ -81,7 +79,6 @@ const LogIn = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL })
               );
-              console.log(userFields);
             })
             .catch((error) => {
               setAuthApiErrorMessage(error.message);
@@ -105,7 +102,6 @@ const LogIn = () => {
           const { uid, email, displayName, photoURL } = user;
           setAuthApiErrorMessage(null);
           dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
-          console.log("fromSignInSelector =>> ", userFields);
         })
         .catch((error) => {
           const errorCode = error.code;

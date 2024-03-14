@@ -15,9 +15,8 @@ const Header = () => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
        // User is Signed in
-        const {uid, email, displayName} = user;
-        dispatch(addUser({uid: uid, email: email, displayName: displayName}));
-        console.log(uid, email);
+        const {uid, email, displayName, photoURL} = user;
+        dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL:photoURL}));
         navigate("/browse");
       } 
       else {
@@ -44,19 +43,27 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute bg-gradient-to-bl from-black px-8 py-2 z-10 flex justify-between">
+    <div className="absolute bg-gradient-to-bl from-black z-10 flex justify-items-center justify-start">
       <img
         // className="w-2/12 m-4"
-        className={(user?"w-1/12 ":"w-2/12 ") + "m-4"}
+        className={(user?"w-1/12 cursor-pointer ":"w-2/12 ") + "m-4"}
         src={LOGO}
         alt="logo"
       ></img>
-      {user && <div className="flex p-2 w-30 h-10">
-        <img
-          src={AVATAR_URL}
-          alt="user_logo"
-        ></img>
-        <button onClick={handleSignOut} className="mx-2 cursor-pointer">Sign out</button>
+      {user && <div className="flex p-2 w-30 h-10 my-4 text-white gap-5">
+        <p className="cursor-pointer">Home</p>
+        <p className="cursor-pointer">TV Shows</p>
+        <p className="cursor-pointer">Movies</p>
+        <p className="cursor-pointer">New & Popular</p>
+        <p className="cursor-pointer">My List</p>
+        <p className="cursor-pointer">Browse by Languages</p>
+        <div className="flex ml-[380px] cursor-pointer">  
+          <img
+            src={AVATAR_URL}
+            alt="user_logo"
+          ></img>
+          <button onClick={handleSignOut} className="mx-2 cursor-pointer text-white">Sign out</button>
+        </div>
       </div>}
     </div>
   );
