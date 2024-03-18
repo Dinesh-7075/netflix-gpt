@@ -20,5 +20,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app); //eslint-disable-line
-// console.log(analytics);
 export const auth = getAuth();

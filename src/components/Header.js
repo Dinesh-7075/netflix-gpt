@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utils/userSlice";
 import { AVATAR_URL, LOGO } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretUp, faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "../utils/AppContext";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
+  const showGptSearchPage = useSelector((store) => store.gpt.showGptSearch);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,7 +44,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute bg-gradient-to-bl from-black z-10 flex justify-items-center justify-start">
+    <div className="absolute z-10 flex justify-items-center justify-start">
       <img
         // className="w-2/12 m-4"
         className={(user ? "w-1/12 cursor-pointer " : "w-2/12 ") + "m-4"}
@@ -50,15 +52,25 @@ const Header = () => {
         alt="logo"
       ></img>
       {user && (
-        <div className="flex p-2 w-30 h-10 my-4 text-white gap-5">
+        <div className={"flex p-2 w-30 h-10 my-4 text-white gap-5 " + (showGptSearchPage ? "ml-[600px]" : " ")}>
+          { !showGptSearchPage &&
+          <>
           <p className="cursor-pointer">Home</p>
           <p className="cursor-pointer">TV Shows</p>
           <p className="cursor-pointer">Movies</p>
           <p className="cursor-pointer">New & Popular</p>
           <p className="cursor-pointer">My List</p>
-          <p className="cursor-pointer">Browse by Languages</p>
+          <p className="cursor-pointer">Browse by Languages</p> </>}
+          <div className="flex cursor-pointer justify-center items-center ml-[200px] ">
+            <button
+              className="bg-purple-800 px-2 py-1 text-sm rounded-lg text-white"
+              onClick={() => dispatch(toggleGptSearchView())}
+            >
+              {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} /> Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
+            </button>
+          </div>
           <div
-            className="flex w-[100px] ml-[265px] cursor-pointer "
+            className="flex w-[100px] ml-[10px] cursor-pointer "
             onMouseOver={() => myContext.setIsHoverdToProfile(true)}
             onMouseLeave={() => myContext.setIsHoverdToProfile(false)}
           >

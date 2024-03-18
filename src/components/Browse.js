@@ -9,6 +9,8 @@ import useTrendingMovies from "../customHooks/useTrendingMovies";
 import useUpcomingMovies from "../customHooks/useUpcomingMovies";
 import ProfileDropdown from "./ProfileDropdown";
 import AppContext from "../utils/AppContext";
+import { useSelector } from "react-redux";
+import GptSearchPage from "./GptSearchPage";
 
 const Browse = () => {
   useNowplayingMovies();
@@ -18,13 +20,20 @@ const Browse = () => {
   useUpcomingMovies();
 
   const myContext = useContext(AppContext);
+  const showGptSearchPage = useSelector((store) => store.gpt.showGptSearch);
 
   return (
     <div>
       <Header />
       {myContext.isHovered ? <ProfileDropdown /> : <span></span>}
-      <MainContainer />
-      <SecondaryContainer />
+      {showGptSearchPage ? (
+        <GptSearchPage />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };
