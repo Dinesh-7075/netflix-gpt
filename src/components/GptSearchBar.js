@@ -1,20 +1,59 @@
 import React, { useRef } from "react";
 import openai from "../utils/openai";
+import { API_OPTIONS } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addGptMovieresult } from "../utils/gptSlice";
+
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
+  const dispatch = useDispatch();
+  const searchMovieInTMDB = async(movie)=> {
+    try{
+      const data = await fetch(
+        "https://api.themoviedb.org/3/search/movie?query=" +
+          movie +
+          "&include_adult=false&language=en-US&page=1",
+        API_OPTIONS
+      );
+    
+      const json = await data.json();
+      return json.results;
+      }
+    
+      catch (e){
+        return console.error(e);
+      }
+  }
+
   const handleSearchGptForm = async() => {
-    const gptSearchQuery =
+  const gptSearchQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
-      ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
-    try{
+      ". only give me names of 25 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
+  try{
       const gptResponse = await openai.chat.completions.create({
       messages: [{ role: 'user', content: gptSearchQuery }],
       model: 'gpt-3.5-turbo',
-    });
-    // console.log(gptResponse.choices?.[0]?.message?.content);
-  } catch(e){
+      });
+      console.log(gptResponse.choices?.[0]?.message?.content);
+      const gptSearchedMovies = gptResponse.choices?.[0]?.message?.content.split(",");
+      const promisesArray = gptSearchedMovies.map((movie) => searchMovieInTMDB(movie));
+      const tmdbResults = await Promise.all(promisesArray);
+      let mergeTmdbResultsArray = [].concat.apply([], tmdbResults);
+      // let mergeTmdbResultsArray = tmdbResults.flat(infinity);
+      console.log(mergeTmdbResultsArray);
+      let filteredTmdbResults = [];
+      gptSearchedMovies.forEach((suggestedMovie)=>{
+        console.log(suggestedMovie.trim());
+          mergeTmdbResultsArray.forEach((movie)=>{
+            if(suggestedMovie.trim() == movie?.title) filteredTmdbResults.push(movie);
+          });
+      });
+      console.log(filteredTmdbResults);
+      dispatch(addGptMovieresult({movieNamesByGpt: gptSearchedMovies, movieResultsFromTmdb: filteredTmdbResults}));
+  }
+  catch(e){
     console.log("error ==>", e );
   }
   };
