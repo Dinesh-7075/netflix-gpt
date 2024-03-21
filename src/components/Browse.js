@@ -11,6 +11,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import AppContext from "../utils/AppContext";
 import { useSelector } from "react-redux";
 import GptSearchPage from "./GptSearchPage";
+import BrowseDropdownForMobile from "./BrowseDropdownForMobile";
 
 const Browse = () => {
   useNowplayingMovies();
@@ -25,7 +26,8 @@ const Browse = () => {
   return (
     <div>
       <Header />
-      {myContext.isHovered ? <ProfileDropdown /> : <span></span>}
+      {myContext.isHoveredToProfile ? <ProfileDropdown /> : <span></span>}
+      {myContext.isHoveredToBrowse ? <BrowseDropdownForMobile /> : <span></span>}
       {showGptSearchPage ? (
         <GptSearchPage />
       ) : (

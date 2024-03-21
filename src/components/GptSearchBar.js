@@ -1,13 +1,16 @@
 import React, { useRef } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addGptMovieresult } from "../utils/gptSlice";
+import lang from "../utils/languageConstants";
 
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
   const dispatch = useDispatch();
+  const langChangeValue = useSelector(store => store.languageChange?.lang);
+
   const searchMovieInTMDB = async(movie)=> {
     try{
       const data = await fetch(
@@ -30,27 +33,23 @@ const GptSearchBar = () => {
   const gptSearchQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
-      ". only give me names of 25 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
+      ". only give me names of 70 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
   try{
       const gptResponse = await openai.chat.completions.create({
       messages: [{ role: 'user', content: gptSearchQuery }],
       model: 'gpt-3.5-turbo',
       });
-      console.log(gptResponse.choices?.[0]?.message?.content);
       const gptSearchedMovies = gptResponse.choices?.[0]?.message?.content.split(",");
       const promisesArray = gptSearchedMovies.map((movie) => searchMovieInTMDB(movie));
       const tmdbResults = await Promise.all(promisesArray);
       let mergeTmdbResultsArray = [].concat.apply([], tmdbResults);
       // let mergeTmdbResultsArray = tmdbResults.flat(infinity);
-      console.log(mergeTmdbResultsArray);
       let filteredTmdbResults = [];
       gptSearchedMovies.forEach((suggestedMovie)=>{
-        console.log(suggestedMovie.trim());
           mergeTmdbResultsArray.forEach((movie)=>{
             if(suggestedMovie.trim() == movie?.title) filteredTmdbResults.push(movie);
           });
       });
-      console.log(filteredTmdbResults);
       dispatch(addGptMovieresult({movieNamesByGpt: gptSearchedMovies, movieResultsFromTmdb: filteredTmdbResults}));
   }
   catch(e){
@@ -59,20 +58,20 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="absolute z-10 bg-black mx-auto right-0 left-0 w-[40%] top-[12%] rounded-lg shadow-lg shadow-gray-300">
+    <div className="absolute bg-black mx-2 md:mx-auto right-0 left-0 md:w-[40%] top-[9%] md:top-[17%] rounded-lg shadow-lg shadow-gray-300">
       <form className="flex justify-start" onSubmit={(e) => e.preventDefault()}>
         <input
           ref={searchText}
           type="text"
-          className="p-1 px-2 m-4 mr-1 w-11/12 rounded-md focus:shadow-md focus:shadow-blue-600"
-          placeholder="What would you like to watch today?"
+          className="text-sm md:text-md p-1 px-2 m-4 mr-1 w-11/12 rounded-md focus:shadow-md focus:shadow-blue-600"
+          placeholder={lang[langChangeValue].gptSearchPlaceholder}
         ></input>
         <button
           type="submit"
           className="p-1.5 m-4 bg-red-700 rounded-md w-3/12"
           onClick={handleSearchGptForm}
         >
-          Search
+          {lang[langChangeValue].search}
         </button>
       </form>
     </div>

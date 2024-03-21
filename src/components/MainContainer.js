@@ -9,10 +9,10 @@ const MainContainer = () => {
   
   if(!movies) return <ErrorPage />;
 
-  const mainMovie = movies[0];
+  const mainMovie = movies[11];
   const {original_title, overview, id} = mainMovie;
   return (
-    <div className='pt-0 max-w-full'>
+    <div className='pt-0 mt-0 max-w-full'>
         <VideoTitleData title={original_title} overview={overview}/>
         <BackgroundVideo movieId={id}/>
     </div>

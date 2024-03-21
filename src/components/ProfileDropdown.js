@@ -34,9 +34,9 @@ const ProfileDropdown = () => {
   const { displayName } = user;
   return (
     <div
-      className="absolute z-10 right-0 top-[50px] w-[200px] h-[245px] bg-black text-sm text-white rounded-lg mx-2 border-[1px] border-gray-900 "
-      onMouseOver={() => myContext.setIsHoverdToProfile(true)}
-      onMouseLeave={() => myContext.setIsHoverdToProfile(false)}
+      className="absolute z-50 right-0 top-[55px] md:top-[50px] w-[200px] h-[245px] bg-black text-sm text-white rounded-lg mx-2 border-[1px] border-gray-900 "
+      onMouseOver={() => myContext.setIsHoverdToProfileDropdown(true)}
+      onMouseLeave={() => myContext.setIsHoverdToProfileDropdown(false)}
     >
       <div>
         <ul className="list-disc my-2">

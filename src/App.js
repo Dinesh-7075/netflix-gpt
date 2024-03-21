@@ -6,11 +6,14 @@ import { useState } from "react";
 import AppContext from "./utils/AppContext";
 
 function App() {
-  const [isHoverdToProfile, setIsHoverdToProfile] = useState(false);
-
+  
+  const [isHoverdToProfileDropdown, setIsHoverdToProfileDropdown] = useState(false);
+  const [isHoverdToBrowseDropdown, setIsHoverdToBrowseDropdown] = useState(false);
   const userSettings = {
-    isHovered: isHoverdToProfile,
-    setIsHoverdToProfile,
+    isHoveredToProfile: isHoverdToProfileDropdown,
+    isHoveredToBrowse: isHoverdToBrowseDropdown,
+    setIsHoverdToProfileDropdown,
+    setIsHoverdToBrowseDropdown,
   };
 
   return (
