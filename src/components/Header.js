@@ -77,7 +77,7 @@ const Header = () => {
         </div>)}
 
           {user && (<>
-          <div className={"flex cursor-pointer justify-end items-center " + (showGptSearchPage ? "lg:ml-[700px]" : "")}>
+          <div className={"flex cursor-pointer justify-end items-center " + (showGptSearchPage ? "lg:ml-[700px]" : "ml-[-40px]")}>
               {
                 showGptSearchPage && <>
                 <select className="p-1 rounded-lg m-2 md:mr-6 bg-gray-900 text-white mr-[10px]" onChange={handleLangChange}>
@@ -88,7 +88,7 @@ const Header = () => {
                 </>
               }
               <button
-                className={"bg-purple-800 p-2 md:px-2 md:py-1 text-sm rounded-lg md:w-[110px] text-white " + (!showGptSearchPage ? "md:mx-20 lg:ml-20 ": "")}
+                className={"bg-purple-800 p-[5px] md:px-2 md:py-1 text-sm rounded-lg md:w-[110px] text-white " + (!showGptSearchPage ? "md:mx-20 lg:ml-20 ": "")}
                 onClick={() => dispatch(toggleGptSearchView())}
               >
                 {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} /> Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
@@ -96,7 +96,7 @@ const Header = () => {
           </div>
 
           <div
-            className="flex text-white md:size-[8%] items-center my-5 md:w-[100px] md:ml-[10px] cursor-pointer ml-[50px]"
+            className="flex text-white md:size-[8%] items-center my-5 md:w-[100px] md:ml-[10px] cursor-pointer ml-[30px]"
             onMouseOver={() => myContext.setIsHoverdToProfileDropdown(true)}
             onMouseLeave={() => myContext.setIsHoverdToProfileDropdown(false)}
           >
