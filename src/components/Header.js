@@ -56,7 +56,7 @@ const Header = () => {
       <div className="flex justify-start md:mx-10 lg:mx-10 mr-5">
         <img
           // className="w-2/12 m-4"
-          className={(user ? "w-[100px] mx-2 " : "w-3/12 ")}
+          className={((user || showGptSearchPage) ? "w-[80px] md:w-[100px] ml-2 " : "w-3/12 ")}
           src={LOGO}
           alt="logo"
         ></img>
@@ -77,10 +77,10 @@ const Header = () => {
         </div>)}
 
           {user && (<>
-          <div className={"flex cursor-pointer justify-end items-center " + (showGptSearchPage ? "lg:ml-[700px]" : "ml-[-40px]")}>
+          <div className={"flex cursor-pointer justify-end items-center " + (showGptSearchPage ? "lg:ml-[700px]" : "ml-[-80px]")}>
               {
                 showGptSearchPage && <>
-                <select className="p-1 rounded-lg m-2 md:mr-6 bg-gray-900 text-white mr-[10px]" onChange={handleLangChange}>
+                <select className="p-1 md:ml-0 rounded-lg ml-[-15px] md:m-2 md:mr-6 bg-gray-900 text-white" onChange={handleLangChange}>
                   {
                     SUPPORTED_LANGUAGES.map((lang)=><option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)
                   }
@@ -88,15 +88,15 @@ const Header = () => {
                 </>
               }
               <button
-                className={"bg-purple-800 p-[5px] md:px-2 md:py-1 text-sm rounded-lg md:w-[110px] text-white " + (!showGptSearchPage ? "md:mx-20 lg:ml-20 ": "")}
+                className={"bg-purple-800 md:p-2 m-1 md:px-2 md:py-1 text-xs md:text-sm rounded-lg md:w-[110px] text-white " + (!showGptSearchPage ? "md:mx-20 lg:ml-20 ": "")}
                 onClick={() => dispatch(toggleGptSearchView())}
               >
-                {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} /> Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
+                {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} />Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
               </button>
           </div>
 
           <div
-            className="flex text-white md:size-[8%] items-center my-5 md:w-[100px] md:ml-[10px] cursor-pointer ml-[30px]"
+            className={"flex text-white md:size-[8%] items-center my-5 md:w-[100px] md:ml-[10px] cursor-pointer " + (showGptSearchPage ? "ml-[30px]" : " ml-2")}
             onMouseOver={() => myContext.setIsHoverdToProfileDropdown(true)}
             onMouseLeave={() => myContext.setIsHoverdToProfileDropdown(false)}
           >
