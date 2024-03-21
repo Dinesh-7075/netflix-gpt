@@ -25,16 +25,17 @@ const ProfileDropdown = () => {
       .then(() => {
         navigate("/");
         dispatch(removeUser());
-        myContext.setIsHoverdToProfile(false);
+        myContext.setIsHoverdToProfileDropdown(false);
       })
       .catch((error) => {
         navigate("/error");
+        console.log(error);
       });
   };
   const { displayName } = user;
   return (
     <div
-      className="absolute z-50 right-0 top-[55px] md:top-[50px] w-[200px] h-[245px] bg-black text-sm text-white rounded-lg mx-2 border-[1px] border-gray-900 "
+      className="absolute z-50 right-0 top-[55px] md:top-[53px] w-[200px] h-[245px] bg-black text-sm text-white rounded-lg mx-2 border-[1px] border-gray-900 "
       onMouseOver={() => myContext.setIsHoverdToProfileDropdown(true)}
       onMouseLeave={() => myContext.setIsHoverdToProfileDropdown(false)}
     >

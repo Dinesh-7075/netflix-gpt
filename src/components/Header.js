@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp, faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "../utils/AppContext";
 import { toggleGptSearchView } from "../utils/gptSlice";
-import BrowseDropdownForMobile from "./BrowseDropdownForMobile"
 import BrowseElementButton from "./BrowseElementButton";
 import { changeLanguage } from "../utils/langSlice";
 
@@ -53,57 +52,62 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute z-10 flex justify-items-center justify-start mt-0 md:flex-row">
-      <img
-        // className="w-2/12 m-4"
-        className={(user ? "md:w-1/12 cursor-pointer " : "w-2/12 ") + "md:m-4 m-4 ml-[2%] w-[20%] "}
-        src={LOGO}
-        alt="logo"
-      ></img>
+    <div className="absolute z-10 flex mt-0 md:flex-row w-screen">
+      <div className="flex justify-start md:mx-10 lg:mx-10 mr-5">
+        <img
+          // className="w-2/12 m-4"
+          className={(user ? "w-[100px] mx-2 " : "w-3/12 ")}
+          src={LOGO}
+          alt="logo"
+        ></img>
+      </div>
+
       {user && (width<breakpoint) && !showGptSearchPage && <BrowseElementButton />}
-      {user && (
-        <div className={"p-2 w-30 h-10 my-4 text-white gap-5 flex " + (showGptSearchPage ? "md:ml-[600px]" : " ")}>
-          { !showGptSearchPage &&
-          <>
-          <p className="cursor-pointer hidden md:inline">Home</p>
-          <p className="cursor-pointer hidden md:inline">TV Shows</p>
-          <p className="cursor-pointer hidden md:inline">Movies</p>
-          <p className="cursor-pointer hidden md:inline">New & Popular</p>
-          <p className="cursor-pointer hidden md:inline">My List</p>
-          <p className="cursor-pointer hidden md:inline">Browse by Languages</p> 
-          </>
-          }
-          <div className="flex cursor-pointer justify-center items-center -ml-2 md:ml-[150px] ">
-            {
-              showGptSearchPage && <>
-              <select className="p-1 rounded-lg m-2 mr-6 bg-gray-900 text-white" onChange={handleLangChange}>
-                {
-                  SUPPORTED_LANGUAGES.map((lang)=><option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)
-                }
-              </select>
-              </>
-            }
-            <button
-              className="bg-purple-800 px-2 py-1 text-sm rounded-lg w-[110px] text-white"
-              onClick={() => dispatch(toggleGptSearchView())}
-            >
-              {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} /> Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
-            </button>
+
+      {user && !showGptSearchPage &&
+        (<div className={"p-2 w-30 h-10 my-4 text-white gap-5 flex justify-start mr-10 " + (showGptSearchPage ? "flex justify-between" : " ")}>
+            <>
+            <p className="cursor-pointer hidden md:inline">Home</p>
+            <p className="cursor-pointer hidden md:inline">TV Shows</p>
+            <p className="cursor-pointer hidden md:inline">Movies</p>
+            <p className="cursor-pointer hidden md:inline">New & Popular</p>
+            <p className="cursor-pointer hidden md:inline">My List</p>
+            <p className="cursor-pointer hidden md:inline">Browse by Languages</p> 
+            </>
+        </div>)}
+
+          {user && (<>
+          <div className={"flex cursor-pointer justify-end items-center " + (showGptSearchPage ? "lg:ml-[700px]" : "")}>
+              {
+                showGptSearchPage && <>
+                <select className="p-1 rounded-lg m-2 md:mr-6 bg-gray-900 text-white mr-[10px]" onChange={handleLangChange}>
+                  {
+                    SUPPORTED_LANGUAGES.map((lang)=><option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)
+                  }
+                </select>
+                </>
+              }
+              <button
+                className={"bg-purple-800 p-2 md:px-2 md:py-1 text-sm rounded-lg md:w-[110px] text-white " + (!showGptSearchPage ? "md:mx-20 lg:ml-20 ": "")}
+                onClick={() => dispatch(toggleGptSearchView())}
+              >
+                {showGptSearchPage ? (<><FontAwesomeIcon icon={faHome} /> Home</>) : (<><FontAwesomeIcon icon={faSearch} /> GPT Search</>) }
+              </button>
           </div>
+
           <div
-            className="flex md:w-[100px] ml-[10px] cursor-pointer "
+            className="flex text-white md:size-[8%] items-center my-5 md:w-[100px] md:ml-[10px] cursor-pointer ml-[50px]"
             onMouseOver={() => myContext.setIsHoverdToProfileDropdown(true)}
             onMouseLeave={() => myContext.setIsHoverdToProfileDropdown(false)}
           >
             <img src={AVATAR_URL} alt="user_logo" className="rounded-sm"></img>
-            {myContext.isHovered ? (
+            {myContext.isHoveredToProfile ? (
               <FontAwesomeIcon className={"mt-1 ml-1 "} icon={faCaretUp} />
             ) : (
               <FontAwesomeIcon className={"mt-1 ml-1 "} icon={faCaretDown} />
             )}
           </div>
-        </div>
-      )}
+          </>)}
     </div>
   );
 };

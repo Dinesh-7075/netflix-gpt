@@ -12,6 +12,7 @@ import AppContext from "../utils/AppContext";
 import { useSelector } from "react-redux";
 import GptSearchPage from "./GptSearchPage";
 import BrowseDropdownForMobile from "./BrowseDropdownForMobile";
+import ErrorPage from "./ErrorPage";
 
 const Browse = () => {
   useNowplayingMovies();
@@ -25,7 +26,7 @@ const Browse = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header />
       {myContext.isHoveredToProfile ? <ProfileDropdown /> : <span></span>}
       {myContext.isHoveredToBrowse ? <BrowseDropdownForMobile /> : <span></span>}
       {showGptSearchPage ? (
@@ -35,7 +36,8 @@ const Browse = () => {
           <MainContainer />
           <SecondaryContainer />
         </>
-      )}
+      )} */}
+      <ErrorPage />
     </div>
   );
 };
