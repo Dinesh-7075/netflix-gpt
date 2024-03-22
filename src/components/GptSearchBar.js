@@ -1,15 +1,17 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addGptMovieresult } from "../utils/gptSlice";
 import lang from "../utils/languageConstants";
+import AppContext from "../utils/AppContext";
 
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
   const dispatch = useDispatch();
   const langChangeValue = useSelector(store => store.languageChange?.lang);
+  const myContext = useContext(AppContext);
 
   const searchMovieInTMDB = async(movie)=> {
     try{
@@ -30,6 +32,7 @@ const GptSearchBar = () => {
   }
 
   const handleSearchGptForm = async() => {
+
   const gptSearchQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
@@ -51,11 +54,13 @@ const GptSearchBar = () => {
           });
       });
       dispatch(addGptMovieresult({movieNamesByGpt: gptSearchedMovies, movieResultsFromTmdb: filteredTmdbResults}));
+      myContext.setIsClickedOnSearchBar(false);
   }
   catch(e){
     console.log("error ==>", e );
   }
   };
+  
 
   return (
     <div className="absolute bg-black mx-2 md:mx-auto right-0 left-0 md:w-[40%] top-[9%] md:top-[15%] lg:top-[15%] rounded-lg shadow-lg shadow-gray-300">
@@ -69,7 +74,7 @@ const GptSearchBar = () => {
         <button
           type="submit"
           className="p-1.5 m-4 bg-red-700 rounded-md w-3/12"
-          onClick={handleSearchGptForm}
+          onClick={()=>{myContext.setIsClickedOnSearchBar(true);handleSearchGptForm();}}
         >
           {lang[langChangeValue].search}
         </button>

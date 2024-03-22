@@ -3,13 +3,29 @@
 @tailwind utilities;
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    ::-webkit-scrollbar {
-        display: none;
-    }
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 /* @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    height: 4px;
+    width: 60px;
+    margin: 3% 20%;
+    --c:no-repeat linear-gradient(black 0 0);
+    background: var(--c),var(--c),#d7b8fc;
+    background-size: 60% 100%;
+    animation: l16 3s infinite;
+  }
+  @keyframes l16 {
+    0%   {background-position:-150% 0,-150% 0}
+    66%  {background-position: 250% 0,-150% 0}
+    100% {background-position: 250% 0, 250% 0}
+  }

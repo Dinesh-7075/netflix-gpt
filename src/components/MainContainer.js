@@ -9,7 +9,7 @@ const MainContainer = () => {
   
   if(!movies) return <ErrorPage />;
 
-  const mainMovie = movies[11];
+  const mainMovie = movies[0];
   const {original_title, overview, id} = mainMovie;
   return (
     <div className='pt-0 mt-0 max-w-full'>

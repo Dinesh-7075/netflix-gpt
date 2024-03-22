@@ -12,6 +12,7 @@ import AppContext from "../utils/AppContext";
 import { useSelector } from "react-redux";
 import GptSearchPage from "./GptSearchPage";
 import BrowseDropdownForMobile from "./BrowseDropdownForMobile";
+import GptMovieSuggestionShimmerUI from "./GptMovieSuggestionShimmerUI";
 
 const Browse = () => {
   useNowplayingMovies();

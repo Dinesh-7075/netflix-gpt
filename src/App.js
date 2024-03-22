@@ -9,11 +9,14 @@ function App() {
   
   const [isHoverdToProfileDropdown, setIsHoverdToProfileDropdown] = useState(false);
   const [isHoverdToBrowseDropdown, setIsHoverdToBrowseDropdown] = useState(false);
+  const [isClickedOnSearchBar, setIsClickedOnSearchBar] = useState(false);
   const userSettings = {
     isHoveredToProfile: isHoverdToProfileDropdown,
     isHoveredToBrowse: isHoverdToBrowseDropdown,
+    isClickedOnSearch: isClickedOnSearchBar,
     setIsHoverdToProfileDropdown,
     setIsHoverdToBrowseDropdown,
+    setIsClickedOnSearchBar,
   };
 
   return (

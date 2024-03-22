@@ -7,11 +7,11 @@ const BrowseElementButton = () => {
     const myContext = useContext(AppContext);
   return (
     <div
-      className="flex items-center -mt-1 mr-7 cursor-pointer "
+      className="flex items-center -mt-1 mr-7 cursor-pointer -ml-3"
       onMouseOver={() => myContext.setIsHoverdToBrowseDropdown(true)}
       onMouseLeave={() => myContext.setIsHoverdToBrowseDropdown(false)}
     >
-      <span className="text-white text-xs">Browse</span>
+      <span className="text-white text-[15px]">Browse</span>
       {myContext.isHoveredToBrowse ? (
         <FontAwesomeIcon className={"mt-1 ml-1 text-white "} icon={faCaretUp} />
       ) : (
