@@ -1,3 +1,5 @@
+# Deployment Link
+- https://netflix-gpt-dinesh-7075.netlify.app/
 # features
 - Login/Signup form
     - SignIn/SignUp form
