@@ -2,7 +2,7 @@
 - https://netflix-gpt-dinesh-7075.netlify.app/
 # features
 - Login/Signup form
-    - SignIn/SignUp form
+    - SignIn/SignUp form (Firbase Authentication)
     - redirect to browse page
 - Browse (After Authentication)
     - Header
@@ -11,15 +11,8 @@
         - Title and description
          - Movie Suggestions
              - MovieLists * N
-- Netflix GPT
+- Netflix GPT (used Open Ai API for searching of movies)
     - Seach Bar
     - Movie Sugestions
-
-# Netflix GPT steps
-- create-react-app
-- config TailwindCSS
-- created SignIn/ SignUp pages
-- Added Routing
-- Built user Redux store
-- Authentication Done
-
+    - Shimmer UI
+- Responsive design
