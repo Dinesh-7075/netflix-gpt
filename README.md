@@ -1,4 +1,4 @@
-#Netflix-GPT
+# Netflix-GPT
 Developed Netflix UI and Fetching data from **TMDB APIs and also integrated with OPENAI APIs for searching of GPT recommended movies**. Dynamically renders data of TMDB movies into the UI using ReactJS and Redux. Implemented SignIn and SignUp authentication using firebase and also implemented Shimmer UI in GPT Search page and this app is responsive in design that looks good on all devices.
 **Note: TMDB APIs works only with either WIFI networks or data connected with VPN networks**
 
