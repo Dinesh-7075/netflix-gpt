@@ -4,7 +4,7 @@ Developed Netflix UI and Fetching data from **TMDB APIs and also integrated with
 - **Note: TMDB APIs works only with either WIFI networks or data connected with VPN networks**
 
 # Deployment Link
-- https://netflix-gpt-dinesh-7075.netlify.app/
+- https://netflix-gpt-dinesh7075.vercel.app/
 # features
 - Login/Signup form
     - SignIn/SignUp form (Firbase Authentication)
